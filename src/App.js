@@ -31,18 +31,20 @@ function App() {
   }, []);
 
   const onSubmit = (data, e) => {
-    let dataPushSelf = {
-      text: data.chatText,
-      type: 'self'
+    if (data.chatText !== "") {
+      let dataPushSelf = {
+        text: data.chatText,
+        type: 'self'
+      }
+      let dataPushBot = {
+        text: data.chatText,
+        type: 'bot'
+      }
+      firebase.database().ref('chatRoom').push(dataPushSelf)
+      setTimeout(() => {
+        firebase.database().ref('chatRoom').push(dataPushBot)
+      }, 1000)
     }
-    let dataPushBot = {
-      text: data.chatText,
-      type: 'bot'
-    }
-    firebase.database().ref('chatRoom').push(dataPushSelf)
-    setTimeout(() => {
-      firebase.database().ref('chatRoom').push(dataPushBot)
-    }, 1000)
     e.target.reset()
   }
 
