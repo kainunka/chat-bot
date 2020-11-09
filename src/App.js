@@ -30,7 +30,7 @@ function App() {
     getChatData()
   }, []);
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, e) => {
     let dataPushSelf = {
       text: data.chatText,
       type: 'self'
@@ -43,6 +43,7 @@ function App() {
     setTimeout(() => {
       firebase.database().ref('chatRoom').push(dataPushBot)
     }, 1000)
+    e.target.reset()
   }
 
   const getChatData = () => {
